@@ -3,9 +3,10 @@
 namespace Middlewares\Tests;
 
 use Middlewares\ResponseTime;
+use Middlewares\Utils\Dispatcher;
+use Middlewares\Utils\CallableMiddleware;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
-use mindplay\middleman\Dispatcher;
 
 class ResponseTimeTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,9 +14,9 @@ class ResponseTimeTest extends \PHPUnit_Framework_TestCase
     {
         $response = (new Dispatcher([
             new ResponseTime(),
-            function () {
+            new CallableMiddleware(function () {
                 return new Response();
-            },
+            }),
         ]))->dispatch(new ServerRequest());
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
