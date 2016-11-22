@@ -9,8 +9,6 @@
 
 Middleware to calculate the response time (in miliseconds) and save it into the X-Response-Time header.
 
-**Note:** This middleware is intended for server side only
-
 ## Requirements
 
 * PHP >= 5.6
