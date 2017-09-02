@@ -2,9 +2,9 @@
 
 namespace Middlewares\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Middlewares\ResponseTime;
 use Middlewares\Utils\Dispatcher;
+use PHPUnit\Framework\TestCase;
 
 class ResponseTimeTest extends TestCase
 {
