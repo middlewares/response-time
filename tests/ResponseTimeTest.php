@@ -2,10 +2,11 @@
 
 namespace Middlewares\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Middlewares\ResponseTime;
 use Middlewares\Utils\Dispatcher;
 
-class ResponseTimeTest extends \PHPUnit_Framework_TestCase
+class ResponseTimeTest extends TestCase
 {
     public function testResponseTime()
     {
