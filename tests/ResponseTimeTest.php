@@ -1,8 +1,10 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
 use Middlewares\ResponseTime;
+use Middlewares\Utils\Factory;
 use Middlewares\Utils\Dispatcher;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +16,18 @@ class ResponseTimeTest extends TestCase
             new ResponseTime(),
         ]);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
+        $this->assertRegexp('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
+    }
+
+    public function testRequestTimeFloat()
+    {
+        $response = Dispatcher::run(
+            [
+                new ResponseTime(),
+            ],
+            Factory::createServerRequest(['REQUEST_TIME_FLOAT' => microtime(true)])
+        );
+
         $this->assertRegexp('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 }
