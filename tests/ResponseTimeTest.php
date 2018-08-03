@@ -4,8 +4,8 @@ declare(strict_types = 1);
 namespace Middlewares\Tests;
 
 use Middlewares\ResponseTime;
-use Middlewares\Utils\Factory;
 use Middlewares\Utils\Dispatcher;
+use Middlewares\Utils\Factory;
 use PHPUnit\Framework\TestCase;
 
 class ResponseTimeTest extends TestCase
@@ -25,7 +25,7 @@ class ResponseTimeTest extends TestCase
             [
                 new ResponseTime(),
             ],
-            Factory::createServerRequest(['REQUEST_TIME_FLOAT' => microtime(true)])
+            Factory::createServerRequest('GET', '/', ['REQUEST_TIME_FLOAT' => microtime(true)])
         );
 
         $this->assertRegexp('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
