@@ -10,16 +10,16 @@ use PHPUnit\Framework\TestCase;
 
 class ResponseTimeTest extends TestCase
 {
-    public function testResponseTime()
+    public function testResponseTime(): void
     {
         $response = Dispatcher::run([
             new ResponseTime(),
         ]);
 
-        $this->assertRegexp('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
+        self::assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 
-    public function testRequestTimeFloat()
+    public function testRequestTimeFloat(): void
     {
         $response = Dispatcher::run(
             [
@@ -28,6 +28,6 @@ class ResponseTimeTest extends TestCase
             Factory::createServerRequest('GET', '/', ['REQUEST_TIME_FLOAT' => microtime(true)])
         );
 
-        $this->assertRegexp('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
+        self::assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 }

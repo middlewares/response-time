@@ -10,7 +10,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class ResponseTime implements MiddlewareInterface
 {
-    const HEADER = 'X-Response-Time';
+    public const HEADER = 'X-Response-Time';
 
     /**
      * Process a server request and return a response.
