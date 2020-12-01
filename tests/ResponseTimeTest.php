@@ -16,7 +16,7 @@ class ResponseTimeTest extends TestCase
             new ResponseTime(),
         ]);
 
-        $this->assertRegexp('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
+        $this->assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 
     public function testRequestTimeFloat()
@@ -28,6 +28,6 @@ class ResponseTimeTest extends TestCase
             Factory::createServerRequest('GET', '/', ['REQUEST_TIME_FLOAT' => microtime(true)])
         );
 
-        $this->assertRegexp('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
+        $this->assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 }
