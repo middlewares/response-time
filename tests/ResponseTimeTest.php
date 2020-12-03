@@ -10,13 +10,26 @@ use PHPUnit\Framework\TestCase;
 
 class ResponseTimeTest extends TestCase
 {
+    /**
+     * phpunit 8 support
+     */
+    public static function assertMatchesRegularExpression(string $pattern, string $string, string $message = ''): void
+    {
+        if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
+            parent::assertMatchesRegularExpression($pattern, $string, $message);
+            return;
+        }
+
+        self::assertRegExp($pattern, $string, $message);
+    }
+
     public function testResponseTime()
     {
         $response = Dispatcher::run([
             new ResponseTime(),
         ]);
 
-        $this->assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
+        self::assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 
     public function testRequestTimeFloat()
@@ -28,6 +41,6 @@ class ResponseTimeTest extends TestCase
             Factory::createServerRequest('GET', '/', ['REQUEST_TIME_FLOAT' => microtime(true)])
         );
 
-        $this->assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
+        self::assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 }
