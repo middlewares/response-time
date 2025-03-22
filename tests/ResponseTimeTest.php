@@ -17,13 +17,14 @@ class ResponseTimeTest extends TestCase
     {
         if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
             parent::assertMatchesRegularExpression($pattern, $string, $message);
+
             return;
         }
 
         self::assertRegExp($pattern, $string, $message);
     }
 
-    public function testResponseTime()
+    public function testResponseTime(): void
     {
         $response = Dispatcher::run([
             new ResponseTime(),
@@ -32,7 +33,7 @@ class ResponseTimeTest extends TestCase
         self::assertMatchesRegularExpression('/^\d{1,4}\.\d{3}ms$/', $response->getHeaderLine('X-Response-Time'));
     }
 
-    public function testRequestTimeFloat()
+    public function testRequestTimeFloat(): void
     {
         $response = Dispatcher::run(
             [
